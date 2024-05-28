@@ -45,3 +45,4 @@ for lzh_file_name in lzh_file_list:
             
 # 終了合図
 print("解凍作業を終了しました")
+
