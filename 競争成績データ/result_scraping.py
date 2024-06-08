@@ -3,10 +3,10 @@ import re
 
 # データのCSV化
 # テキストファイルが保存されている場所を指定
-TXT_FILE_DIR = "データ格納_解凍後/"
+TEXT_FILE_DIR = "競争成績データ/競争成績データ_解凍後/"
 
 # CSVファイルを保存する場所を指定
-CSV_FILE_DIR = "データ格納_csv/"
+CSV_FILE_DIR = "競争成績データ_csv/"
 
 # CSVファイルの名前を指定
 CSV_FILE_NAME = "result.csv"
@@ -33,6 +33,165 @@ CSV_FILE_HEADER = "レースコード,タイトル,日次,レース日,レース
 6着_着順,6着_艇番,6着_登録番号,6着_選手名,6着_モーター番号,6着_ボート番号,\
 6着_展示タイム,6着_進入コース,6着_スタートタイミング,6着_レースタイム,\n"
 
+
+# テキストファイルからデータを抽出し、CSVファイルに書き込む関数 get_data を定義
+def get_data(text_file):
+    # CSVファイルを追記モードで開く
+    csv_file = open(CSV_FILE_DIR + CSV_FILE_NAME, "a", encoding="shift_jis")
+
+    # テキストファイルから中身を順に取り出す
+    for line in text_file:
+
+        # キーワード「競争成績」を見つけたら(rは正規表現でraw文字列を指定するおまじない)
+        if re.search(r"競走成績", line):
+            # 1行スキップ
+            text_file.readline()
+
+            # タイトルを格納
+            line = text_file.readline()
+            title = line[:-1].strip()
+
+            # 1行スキップ
+            text_file.readline()
+
+            # 日次・レース日・レース場を格納
+            line = text_file.readline()
+            day = line[3:7].replace(' ', '')
+            date = line[17:27].replace(' ', '0')
+            stadium = line[62:65].replace('　', '')
+
+        # レース回の「R」と距離の「H」を同じ行に見つけたら -> これ以降に競走成績の詳細が記載
+        if re.search(r"R", line) and re.search(r"H", line):
+
+            # レース名にキーワード「進入固定」が割り込んだ際の補正(「進入固定戦隊」は除くためＨまで含めて置換)
+            if re.search(r"進入固定", line):
+                line = line.replace('進入固定       H', '進入固定           H')
+
+            # レース回、レース名、距離(m)、天候、風向、風速(m)、波の高さ(cm)を取得
+            race_round = line[2:5].replace(' ', '0')
+            race_name = line[12:31].replace('　', '')
+            distance = line[36:40]
+            weather = line[43:45].strip()
+            wind_direction = line[50:52].strip()
+            wind_velocity = line[53:55].strip()
+            wave_height = line[60:63].strip()
+
+            # 決まり手を取得
+            line = text_file.readline()
+            winning_technique = line[50:55].strip()
+
+            # 1行スキップ
+            text_file.readline()
+
+            # 選手データを格納する変数を定義
+            result_racer = ""
+
+            # 選手データを取り出す行(開始行)を格納
+            line = text_file.readline()
+
+            # 空行まで処理を繰り返す = 1～6艇分の選手データを取得
+            while line != "\n":
+                # 選手データを格納(行末にカンマが入らないように先頭にカンマを入れる)
+                result_racer += "," + line[2:4] + "," + line[6] + "," + line[8:12] \
+                                + "," + line[13:21] + "," + line[22:24] + "," + line[27:29] \
+                                + "," + line[30:35].strip() + "," + line[38] + "," + line[43:47] \
+                                + "," + line[52:58]
+
+                # 次の行を読み込む
+                line = text_file.readline()
+
+            # レース結果を取り出す行(開始行)を格納
+            line = text_file.readline()
+
+            # 空行まで処理を繰り返す = レース結果を取得
+            while line != "\n":
+
+                # 単勝の結果を取得
+                if re.search(r"単勝", line):
+
+                    # 文字列「特払い」が割り込んだ際の補正
+                    if re.search(r"特払い", line):
+                        line = line.replace('        特払い   ', '   特払い        ')
+
+                    result_win = line[15] + "," + line[22:29].strip()
+
+                # 複勝の結果を取得
+                if re.search(r"複勝", line):
+
+                    # 文字列「特払い」が割り込んだ際の補正
+                    if re.search(r"特払い", line):
+                        line = line.replace('        特払い   ', '   特払い        ')
+
+                    # 複勝_2着のデータが存在しない場合の分岐
+                    if len(line) <= 33:
+                        result_place_show = line[15] + "," + line[22:29].strip() \
+                                            + "," + ","
+                    else:
+                        result_place_show = line[15] + "," + line[22:29].strip() \
+                                            + "," + line[31] + "," + line[38:45].strip()
+
+                # 2連単の結果を取得
+                if re.search(r"２連単", line):
+                    result_exacta = line[14:17] + "," + line[21:28].strip() \
+                                    + "," + line[36:38].strip()
+
+                # 2連複の結果を取得
+                if re.search(r"２連複", line):
+                    result_quinella = line[14:17] + "," + line[21:28].strip() \
+                                      + "," + line[36:38].strip()
+
+                # 拡連複の結果を取得
+                if re.search(r"拡連複", line):
+                    # 1-2着
+                    result_quinella_place = line[14:17] + "," + line[21:28].strip() \
+                                            + "," + line[36:38].strip()
+
+                    # 1-3着
+                    line = text_file.readline()
+                    result_quinella_place += "," + line[17:20] + "," + line[24:31].strip() \
+                                             + "," + line[39:41].strip()
+
+                    # 2-3着
+                    line = text_file.readline()
+                    result_quinella_place += "," + line[17:20] + "," + line[24:31].strip() \
+                                             + "," + line[39:41].strip()
+
+                # 3連単の結果を取得
+                if re.search(r"３連単", line):
+                    result_trifecta = line[14:19] + "," + line[21:28].strip() \
+                                      + "," + line[35:38].strip()
+
+                # 3連複の結果を取得
+                if re.search(r"３連複", line):
+                    result_trio = line[14:19] + "," + line[21:28].strip() \
+                                  + "," + line[35:38].strip()
+
+                # 次の行を読み込む
+                line = text_file.readline()
+
+            # レースコードを生成
+            dict_stadium = {'桐生': 'KRY', '戸田': 'TDA', '江戸川': 'EDG', '平和島': 'HWJ',
+                            '多摩川': 'TMG', '浜名湖': 'HMN', '蒲郡': 'GMG', '常滑': 'TKN',
+                            '津': 'TSU', '三国': 'MKN', '琵琶湖': 'BWK','びわこ': 'BWK', '住之江': 'SME',
+                            '尼崎': 'AMG', '鳴門': 'NRT', '丸亀': 'MRG', '児島': 'KJM',
+                            '宮島': 'MYJ', '徳山': 'TKY', '下関': 'SMS', '若松': 'WKM',
+                            '芦屋': 'ASY', '福岡': 'FKO', '唐津': 'KRT', '大村': 'OMR'
+                            }
+
+            race_code = date[0:4] + date[5:7] + date[8:10] + dict_stadium[stadium] + race_round[0:2]
+
+            # 抽出したデータをCSVファイルに書き込む
+            csv_file.write(race_code + "," + title + "," + day + "," + date + "," + stadium \
+                           + "," + race_round + "," + race_name + "," + distance + "," + weather \
+                           + "," + wind_direction + "," + wind_velocity + "," + wave_height \
+                           + "," + winning_technique + "," + result_win + "," + result_place_show \
+                           + "," + result_exacta + "," + result_quinella + "," + result_quinella_place \
+                           + "," + result_trifecta + "," + result_trio + result_racer + "\n")
+
+    # CSVファイルを閉じる
+    csv_file.close()
+
+
 # 開始合図
 print("作業を開始します")
 
@@ -44,70 +203,18 @@ csv_file = open(CSV_FILE_DIR + CSV_FILE_NAME, "w", encoding="shift_jis")
 csv_file.write(CSV_FILE_HEADER)
 csv_file.close()
 
-
-# テキストファイルからデータを抽出し、CSVファイルに書き込む関数
-def get_data(text_file):
-    # CSVファイルを追記モードで開く
-    csv_file = open(CSV_FILE_DIR + CSV_FILE_NAME, "a", encoding="shift_jis")
-
-    # テキストファイルからデータを抽出
-    for contents in text_file:
-
-        # 文字列「競争成績」を検索してタイトル・日次・レース日・レース場を取得
-        # rは正規表現でraw文字列を指定するおまじない
-        if re.search(r"競走成績", contents):
-            # 1行スキップ
-            text_file.readline()
-
-            # タイトルを取得
-            line = text_file.readline()
-            title = line[:-1].strip()
-
-            # 1行スキップ
-            text_file.readline()
-
-            # 日次、レース日、レース場を取得
-            line = text_file.readline()
-            day = line[3:7].replace(' ', '')
-            date = line[17:27].replace(' ', '')
-            stadium = line[62:65].replace('　', '')
-
-        # 文字列「払戻金」を検索してレース結果を取得
-        if re.search(r"払戻金", contents):
-
-            line = text_file.readline()
-
-            # 空行まで処理を繰り返す = 12レース分を取得
-            while line != "\n":
-                results = line[10:13].strip() + "," \
-                          + line[15:20] + "," + line[21:28].strip() + "," \
-                          + line[32:37] + "," + line[38:45].strip() + "," \
-                          + line[49:52] + "," + line[53:60].strip() + "," \
-                          + line[64:67] + "," + line[68:75].strip()
-
-                # 抽出したデータをCSVファイルに書き込む
-                csv_file.write(title + "," + day + "," + date + "," + stadium + "," + results + "\n")
-
-                # 次の行を読み込む
-                line = text_file.readline()
-
-    # CSVファイルを閉じる
-    csv_file.close()
-
-
 # テキストファイルのリストを取得
-text_file_list = os.listdir(TXT_FILE_DIR)
+text_file_list = os.listdir(TEXT_FILE_DIR)
 
-# ファイルの数だけ処理を繰り返す
-for txt_file_name in text_file_list:
+# リストからファイル名を順に取り出す
+for text_file_name in text_file_list:
 
-    # 拡張子が txt のファイルに対してのみ実行
-    if re.search(".TXT", txt_file_name):
-
+    # 拡張子が TXT のファイルに対してのみ実行
+    if re.search(".TXT", text_file_name):
         # テキストファイルを開く
-        text_file = open(TXT_FILE_DIR + txt_file_name, "r", encoding="shift_jis")
+        text_file = open(TEXT_FILE_DIR + text_file_name, "r", encoding="shift_jis")
 
-        # データを抽出する
+        # 関数 get_data にファイル(オブジェクト)を渡す
         get_data(text_file)
 
         # テキストファイルを閉じる
