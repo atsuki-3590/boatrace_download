@@ -11,7 +11,7 @@ START_DATE = "2013-09-20"
 END_DATE = "2024-5-17"
 
 # ファイルの保存先を指定　※コラボでGoogleドライブをマウントした状態を想定
-SAVE_DIR = "払い戻しデータ_解凍前/"
+SAVE_DIR = "競争成績データ_解凍前/"
 if not os.path.exists(SAVE_DIR):
     print("ディレクトリを作成します")
     os.makedirs(SAVE_DIR)
