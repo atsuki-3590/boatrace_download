@@ -3,10 +3,10 @@ import re
 import lhafile
 
 # ダウンロードしたLZHファイルの格納先を指定
-LZH_FILE_DIR = "番組表データ_解凍前/"
+LZH_FILE_DIR = "番組表データ/番組表データ_解凍前/"
 
 # ファイルの解凍先を指定
-TEXT_FILE_DIR = "番組表データ_解凍後/"
+TEXT_FILE_DIR = "番組表データ/番組表データ_解凍後/"
 
 # 解凍先ディレクトリが存在しない場合は作成
 if not os.path.exists(TEXT_FILE_DIR):

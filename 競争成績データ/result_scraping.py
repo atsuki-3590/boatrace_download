@@ -195,7 +195,7 @@ def get_data(text_file):
 # 開始合図
 print("作業を開始します")
 
-# CSVファイルを格納するフォルダを作成
+# CSVファイルを保存するフォルダを作成
 os.makedirs(CSV_FILE_DIR, exist_ok=True)
 
 # CSVファイルを作成しヘッダ情報を書き込む

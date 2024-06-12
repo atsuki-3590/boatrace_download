@@ -1,6 +1,6 @@
 # データcsv化
 # 解凍したテキストファイルの格納先を指定
-TEXT_FILE_DIR = "番組表データ_解凍後/"
+TEXT_FILE_DIR = "番組表データ/番組表データ_解凍後/"
 
 # CSVファイルの保存先を指定
 CSV_FILE_DIR = "番組表データ_csv/"
@@ -9,7 +9,7 @@ CSV_FILE_DIR = "番組表データ_csv/"
 CSV_FILE_NAME = "timetable.csv"
 
 # CSVファイルのヘッダーを指定
-CSV_FILE_HEADER = "タイトル,日次,レース日,レース場,レース回,レース名,距離(m),電話投票締切予定,\
+CSV_FILE_HEADER = "レースコード, タイトル,日次,レース日,レース場,レース回,レース名,距離(m),電話投票締切予定,\
 1枠_艇番,1枠_登録番号,1枠_選手名,1枠_年齢,1枠_支部,1枠_体重,1枠_級別,\
 1枠_全国勝率,1枠_全国2連対率,1枠_当地勝率,1枠_当地2連対率,\
 1枠_モーター番号,1枠_モーター2連対率,1枠_ボート番号,1枠_ボート2連対率,\
@@ -124,8 +124,19 @@ def get_data(text_file):
                 # 次の行を読み込む
                 line = text_file.readline()
 
+            # レースコードを生成
+            dict_stadium = {'桐生': 'KRY', '戸田': 'TDA', '江戸川': 'EDG', '平和島': 'HWJ',
+                            '多摩川': 'TMG', '浜名湖': 'HMN', '蒲郡': 'GMG', '常滑': 'TKN',
+                            '津': 'TSU', '三国': 'MKN', '琵琶湖': 'BWK','びわこ': 'BWK', '住之江': 'SME',
+                            '尼崎': 'AMG', '鳴門': 'NRT', '丸亀': 'MRG', '児島': 'KJM',
+                            '宮島': 'MYJ', '徳山': 'TKY', '下関': 'SMS', '若松': 'WKM',
+                            '芦屋': 'ASY', '福岡': 'FKO', '唐津': 'KRT', '大村': 'OMR'
+                            }
+
+            race_code = date[0:4] + date[5:7] + date[8:10] + dict_stadium[stadium] + race_round[0:2]
+
             # 抽出したデータをCSVファイルに書き込む
-            csv_file.write(title + "," + day + "," + date + "," + stadium + "," + race_round
+            csv_file.write(race_code + "," + title + "," + day + "," + date + "," + stadium + "," + race_round
                            + "," + race_name + "," + distance + "," + post_time + racer_data + "\n")
     # CSVファイルを閉じる
     csv_file.close()
