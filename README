@@ -1,12 +1,17 @@
 ボートレースホームページ内の各種データからのスクレイピング
+対象データは"番組表"と"競争成績"の二つ
 
-info_crawling : 出走表データのクローリング
-info_unzip : 出走表データの解凍
-info_scraping : 出走表データのスクレイピング
+番組表
+サイトURL：https://www1.mbrace.or.jp/od2/B/dindex.html
+info_crawling : 番組表データのダウンロード
+info_unzip : 番組表データの解凍
+info_scraping : 番組表データのスクレイピング
 
-result_crawling : 払い戻しデータのクローリング
-result_unzip : 払い戻しデータの解凍
-result_scraping : 払い戻しデータのスクレイピング
+競争成績
+サイトURL：https://www1.mbrace.or.jp/od2/K/dindex.html
+result_crawling : 競争成績データのダウンロード
+result_unzip : 競争成績データの解凍
+result_scraping : 競争成績データのスクレイピング
 
 
 番組表データのカラム
