@@ -6,8 +6,8 @@ class OddsSpider(scrapy.Spider):
     name = "odds_spider"
 
     # 開始日と終了日を指定
-    start_date = dt.strptime('2024-01-03', '%Y-%m-%d')
-    end_date = dt.strptime('2024-01-04', '%Y-%m-%d')
+    start_date = dt.strptime('2024-01-08', '%Y-%m-%d')
+    end_date = dt.strptime('2024-06-30', '%Y-%m-%d')
 
     # ファイルの保存先を指定
     save_dir = "odds_data/オッズ_HTML"
