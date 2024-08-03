@@ -12,7 +12,7 @@ print("オッズデータのクローニングを開始します")
 # レース払い戻しデータスクレイピング
 # 開始日と終了日を指定(YYYY-MM-DD)
 START_DATE = "2024-01-01"
-END_DATE = "2024-06-10"
+END_DATE = "2024-01-10"
 
 # ファイルの保存先を指定
 SAVE_DIR = "odds_data/オッズ_HTML"
@@ -64,17 +64,24 @@ def crawl(date_str, rno, jcd):
         print(f"Failed to retrieve {url}")
 
 # 並列処理を使用してクローリング
-with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
-    futures = []
+def parallel_crawling(start_date, end_date):
+    tasks = []
     current_date = start_date
     while current_date <= end_date:
         date_str = current_date.strftime('%Y%m%d')
-        for jcd in jcd_range:
-            for rno in rno_range:
-                futures.append(executor.submit(crawl, date_str, rno, jcd))
+        for jcd in range(1, 25):
+            for rno in range(1, 13):
+                tasks.append((date_str, rno, jcd))
         current_date += td(days=1)
 
-    for future in concurrent.futures.as_completed(futures):
-        future.result()
+    with Pool(processes=10) as pool:
+        try:
+            pool.map(crawl, tasks)
+        except KeyboardInterrupt:
+            print("クローリングを中断しました")
+            pool.terminate()
+            pool.join()
 
-print("クローニングを完了しました")
+if __name__ == "__main__":
+    parallel_crawling(start_date, end_date)
+    print("クローニングを完了しました")
