@@ -10,7 +10,7 @@ class OddsSpider(scrapy.Spider):
     end_date = dt.strptime('2024-09-30', '%Y-%m-%d')
 
     # ファイルの保存先を指定
-    save_dir = "odds_data/オッズ_HTML"
+    save_dir = "odds_data/odds_HTML"
     if not os.path.exists(save_dir):
         print("ディレクトリを作成します")
         os.makedirs(save_dir)
@@ -27,10 +27,15 @@ class OddsSpider(scrapy.Spider):
 
         while current_date <= self.end_date:
             date_str = current_date.strftime('%Y%m%d')
-            for jcd in range(1, 25):
-                for rno in range(1, 13):
-                    url = f"{base_url}?rno={rno}&jcd={jcd:02d}&hd={date_str}"
-                    yield scrapy.Request(url, callback=self.parse, meta={'date_str': date_str, 'jcd': jcd, 'rno': rno})
+            # for jcd in range(1, 25):
+            #     for rno in range(1, 13):
+            #         url = f"{base_url}?rno={rno}&jcd={jcd:02d}&hd={date_str}"
+            #         yield scrapy.Request(url, callback=self.parse, meta={'date_str': date_str, 'jcd': jcd, 'rno': rno})
+
+            jcd = 5   # 多摩川
+            for rno in range(1, 13):
+                url = f"{base_url}?rno={rno}&jcd={jcd:02d}&hd={date_str}"
+                yield scrapy.Request(url, callback=self.parse, meta={'date_str': date_str, 'jcd': jcd, 'rno': rno})
             current_date += td(days=1)
 
     def parse(self, response):

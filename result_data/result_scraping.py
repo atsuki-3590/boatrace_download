@@ -9,7 +9,7 @@ TEXT_FILE_DIR = "result_data/競争成績データ_解凍後/"
 CSV_FILE_DIR = "data_csv/"
 
 # CSVファイルの名前を指定
-CSV_FILE_NAME = "result.csv"
+CSV_FILE_NAME = "result_new.csv"
 
 # CSVファイルのヘッダーを指定
 CSV_FILE_HEADER = [
@@ -43,7 +43,7 @@ CSV_FILE_HEADER = ','.join(CSV_FILE_HEADER) + '\n'  # リストをカンマ区�
 # テキストファイルからデータを抽出し、CSVファイルに書き込む関数 get_data を定義
 def get_data(text_file):
     # CSVファイルを追記モードで開く
-    csv_file = open(CSV_FILE_DIR + CSV_FILE_NAME, "a", encoding="shift_jis")
+    csv_file = open(CSV_FILE_DIR + CSV_FILE_NAME, "a", encoding="UTF-8")
 
     # テキストファイルから中身を順に取り出す
     for line in text_file:
@@ -205,7 +205,7 @@ print("作業を開始します")
 os.makedirs(CSV_FILE_DIR, exist_ok=True)
 
 # CSVファイルを作成しヘッダ情報を書き込む
-csv_file = open(CSV_FILE_DIR + CSV_FILE_NAME, "w", encoding="shift_jis")
+csv_file = open(CSV_FILE_DIR + CSV_FILE_NAME, "w", encoding="UTF-8")
 csv_file.write(CSV_FILE_HEADER)
 csv_file.close()
 

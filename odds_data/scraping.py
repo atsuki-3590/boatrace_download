@@ -13,7 +13,7 @@ TEXT_FILE_DIR = "odds_scrapy/odds_data/odds_HTML"
 CSV_FILE_DIR = "data_csv/"
 
 # CSVファイルの名前を指定　※YYYYMMDDには対象期間を入力
-CSV_FILE_NAME = "odds_3f.csv"
+CSV_FILE_NAME = "odds_3f_new.csv"
 
 # CSVファイルのヘッダーを指定
 CSV_FILE_HEADER = [
