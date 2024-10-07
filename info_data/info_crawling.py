@@ -12,7 +12,7 @@ END_DATE = "2024-6-10"
 
 # ファイルの保存先を指定
 # SAVE_DIR = "C:\\Users\\atsuk\\OneDrive\\画像\\ドキュメント\\@ボートレース予想\\番組表データ_解凍前\\"
-SAVE_DIR = "番組表データ/番組表データ_解凍前/"
+SAVE_DIR = "info_data/番組表データ_解凍前/"
 
 if not os.path.exists(SAVE_DIR):
     print("ディレクトリを作成します")

@@ -4,10 +4,10 @@ import lhafile
 
 #  データ解凍
 # ダウンロードしたLZHファイルが保存されている場所を指定
-LZH_FILE_DIR = "競争成績データ/競争成績データ_解凍前/"
+LZH_FILE_DIR = "result_data/競争成績データ_解凍前/"
 
 # 解凍したファイルを保存する場所を指定
-TEXT_FILE_DIR = "競争成績データ/競争成績データ_解凍後/"
+TEXT_FILE_DIR = "result_data/競争成績データ_解凍後/"
 # 解凍先ディレクトリが存在しない場合は作成
 if not os.path.exists(TEXT_FILE_DIR):
     print("ディレクトリを作成します")

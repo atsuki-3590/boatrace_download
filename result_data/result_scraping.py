@@ -45,6 +45,15 @@ def get_data(text_file):
     # CSVファイルを追記モードで開く
     csv_file = open(CSV_FILE_DIR + CSV_FILE_NAME, "a", encoding="UTF-8")
 
+    # 初期化
+    result_win = ""  # 初期値を設定
+    result_place_show = ""  # 初期値を設定
+    result_exacta = ""
+    result_quinella = ""
+    result_quinella_place = ""
+    result_trifecta = ""
+    result_trio = ""
+
     # テキストファイルから中身を順に取り出す
     for line in text_file:
 
