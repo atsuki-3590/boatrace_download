@@ -5,8 +5,32 @@ TEXT_FILE_DIR = "info_data/番組表データ_解凍後/"
 # CSVファイルの保存先を指定
 CSV_FILE_DIR = "data_csv/"
 
+# # CSVファイルの名前を指定　※YYYYMMDDには対象期間を入力
+# CSV_FILE_NAME = "info_new_a.csv"
+
+
+# CSV化する日付範囲を指定 (YYYYMMDD形式)
+START_DATE = "20240611"  # 開始日
+END_DATE = "20240731"    # 終了日
+
+# 必要なモジュールのインポート
+import os
+import re
+from datetime import datetime
+
+# 日付フォーマットの関数
+def extract_date_from_filename(filename):
+    """ファイル名から日付部分を抽出し、標準日付形式に変換"""
+    match = re.search(r"B(\d{6})\.TXT", filename)
+    if match:
+        raw_date = match.group(1)
+        formatted_date = "20" + raw_date[:2] + raw_date[2:4] + raw_date[4:6]
+        return datetime.strptime(formatted_date, "%Y%m%d")
+    return None
+
 # CSVファイルの名前を指定　※YYYYMMDDには対象期間を入力
-CSV_FILE_NAME = "info_new.csv"
+CSV_FILE_NAME = f"info_{START_DATE}_{END_DATE}.csv"
+
 
 # CSVファイルのヘッダーを指定
 CSV_FILE_HEADER = [
@@ -146,6 +170,41 @@ def get_data(text_file):
     csv_file.close()
 
 
+# # 開始合図
+# print("作業を開始します")
+
+# # CSVファイルを保存するフォルダを作成
+# if not os.path.exists(CSV_FILE_DIR):
+#     os.makedirs(CSV_FILE_DIR)
+
+# # CSVファイルを作成しヘッダ情報を書き込む
+# csv_file = open(CSV_FILE_DIR + CSV_FILE_NAME, "w", encoding="UTF-8")
+# csv_file.write(CSV_FILE_HEADER)
+# csv_file.close()
+
+# # テキストファイルのリストを取得
+# text_file_list = os.listdir(TEXT_FILE_DIR)
+
+# # リストからファイル名を順に取り出す
+# for text_file_name in text_file_list:
+
+#     # 拡張子が TXT のファイルに対してのみ実行
+#     if re.search(".TXT", text_file_name):
+#         # テキストファイルを開く
+#         text_file = open(TEXT_FILE_DIR + text_file_name, "r", encoding="shift_jis")
+
+#         # 関数 get_data にファイル(オブジェクト)を渡す
+#         get_data(text_file)
+
+#         # テキストファイルを閉じる
+#         text_file.close()
+
+# print(CSV_FILE_DIR + CSV_FILE_NAME + " を作成しました")
+
+# # 終了合図
+# print("作業を終了しました")
+
+
 # 開始合図
 print("作業を開始します")
 
@@ -153,7 +212,7 @@ print("作業を開始します")
 if not os.path.exists(CSV_FILE_DIR):
     os.makedirs(CSV_FILE_DIR)
 
-# CSVファイルを作成しヘッダ情報を書き込む
+# CSVファイルを作成しヘッダー情報を書き込む
 csv_file = open(CSV_FILE_DIR + CSV_FILE_NAME, "w", encoding="UTF-8")
 csv_file.write(CSV_FILE_HEADER)
 csv_file.close()
@@ -161,19 +220,22 @@ csv_file.close()
 # テキストファイルのリストを取得
 text_file_list = os.listdir(TEXT_FILE_DIR)
 
+# 日付範囲を適用
+start_date_obj = datetime.strptime(START_DATE, "%Y%m%d")
+end_date_obj = datetime.strptime(END_DATE, "%Y%m%d")
+
 # リストからファイル名を順に取り出す
 for text_file_name in text_file_list:
+    # ファイル名から日付を抽出
+    file_date_obj = extract_date_from_filename(text_file_name)
 
-    # 拡張子が TXT のファイルに対してのみ実行
-    if re.search(".TXT", text_file_name):
+    # 日付が指定範囲内で、拡張子がTXTのファイルに対してのみ実行
+    if file_date_obj and start_date_obj <= file_date_obj <= end_date_obj and re.search(r".TXT$", text_file_name):
         # テキストファイルを開く
-        text_file = open(TEXT_FILE_DIR + text_file_name, "r", encoding="shift_jis")
-
-        # 関数 get_data にファイル(オブジェクト)を渡す
-        get_data(text_file)
-
-        # テキストファイルを閉じる
-        text_file.close()
+        text_file_path = os.path.join(TEXT_FILE_DIR, text_file_name)
+        with open(text_file_path, "r", encoding="shift_jis") as text_file:
+            # 関数 get_data にファイル(オブジェクト)を渡す
+            get_data(text_file)
 
 print(CSV_FILE_DIR + CSV_FILE_NAME + " を作成しました")
 
