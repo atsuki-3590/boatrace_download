@@ -1,22 +1,20 @@
 # データcsv化
+# 必要なモジュールのインポート
+import os
+import re
+from datetime import datetime
+
 # 解凍したテキストファイルの格納先を指定
 TEXT_FILE_DIR = "info_data/番組表データ_解凍後/"
 
 # CSVファイルの保存先を指定
 CSV_FILE_DIR = "data_csv/"
 
-# # CSVファイルの名前を指定　※YYYYMMDDには対象期間を入力
-# CSV_FILE_NAME = "info_new_a.csv"
-
-
 # CSV化する日付範囲を指定 (YYYYMMDD形式)
 START_DATE = "20240611"  # 開始日
-END_DATE = "20240731"    # 終了日
+END_DATE = "20240831"    # 終了日
 
-# 必要なモジュールのインポート
-import os
-import re
-from datetime import datetime
+
 
 # 日付フォーマットの関数
 def extract_date_from_filename(filename):
@@ -226,7 +224,6 @@ end_date_obj = datetime.strptime(END_DATE, "%Y%m%d")
 
 # リストからファイル名を順に取り出す
 for text_file_name in text_file_list:
-    # ファイル名から日付を抽出
     file_date_obj = extract_date_from_filename(text_file_name)
 
     # 日付が指定範囲内で、拡張子がTXTのファイルに対してのみ実行
