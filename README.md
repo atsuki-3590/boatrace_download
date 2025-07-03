@@ -33,11 +33,11 @@
 
   - **サイトURL:** [https://www.boatrace.jp/owpc/pc/race/odds3f?rno=12&jcd=12&hd=20241222](https://www.boatrace.jp/owpc/pc/race/odds3f?rno=12&jcd=12&hd=20241222)
   - **関連スクリプト:**
-      - `odds_scrapy/odds_scrapy/spiders/odds_spider.py`: オッズ情報を取得するためのScrapyスパイダーです。
+      - `boatrace_scrapy/boatrace_scrapy/spiders/odds_spider.py`: オッズ情報を取得するためのScrapyスパイダーです。
   - **実行方法:**
     以下のコマンドをターミナルで実行します。
     ```bash
-    cd odds_scrapy
+    cd boatrace_scrapy
     scrapy crawl odds_spider
     ```
 

@@ -1,8 +1,8 @@
 # settings.py
 
-BOT_NAME = 'odds_scrapy'
-SPIDER_MODULES = ['odds_scrapy.spiders']
-NEWSPIDER_MODULE = 'odds_scrapy.spiders'
+BOT_NAME = 'boatrace_scrapy'
+SPIDER_MODULES = ['boatrace_scrapy.spiders']
+NEWSPIDER_MODULE = 'boatrace_scrapy.spiders'
 
 # 適切なUSER_AGENTを設定
 USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
