@@ -1,0 +1,20 @@
+Content-Length: 5300
+Content-Type: text/html;charset=UTF-8
+Server: WebOTX_Web_Server
+X-Content-Type-Options: nosniff
+X-Frame-Options: SAMEORIGIN
+X-Xss-Protection: 1; mode=block
+Accept-Ranges: none
+Vary: Accept-Encoding
+X-Akamai-Transformed: 9 3374 0 pmb=mRUM,2
+Content-Encoding: gzip
+Date: Thu, 03 Jul 2025 05:54:12 GMT
+Set-Cookie: PC_JSESSIONID=9E4E4789BF0995BEC2157209C4448EE4; Path=/; Secure; HttpOnly
+Set-Cookie: AKA_A2=A; expires=Thu, 03-Jul-2025 06:54:12 GMT; path=/; domain=boatrace.jp; secure; HttpOnly
+Set-Cookie: _abck=F3D8895D54AC8913F2B9B5E68A41C0E3~-1~YAAQUVLNF06DlsmXAQAAuIfZzg5JUiZ+wOb+FzGi7UoyETtuzvGKG1UQ/Howcer24PbswmzFsOEibYcsc/Pff2brdpNnf4k9hagVprYYtYey6M8AespJ2vEAixHXofBbAVKuIj9KYuT6CKZ0W74oO/qDfoEIyglDg9rYY3LeDKXIU8qyt5rczVqjokGgQdXLZw8lXCnAr1YBp67kT3q/quLiojrh53bgVlEfhVCX4WXDD1IHbE11ejDO/pnoc/Ds8ifDxHDKZddSMx8R9/b9OSlM7dzo+1gJvO8MXgUGn4ZRon/zkigR/q6uMg+KAMlByJGehQJ5Bp4o0b4L/3R7LfCrEwvuLYIM3neNcx8l4F7lDpiutdQ1zbW3ilNHufIxb2EIqRWUfxggk3fDBhiUlmfL8uAbemc50nwnYNubIyl3jq4mmaVPLPGEj3DSVfSj/Ixd7OQ=~-1~-1~-1; Domain=.boatrace.jp; Path=/; Expires=Fri, 03 Jul 2026 05:54:12 GMT; Max-Age=31536000; Secure
+Set-Cookie: bm_sz=7E4D74B6002C8F6A817F087F4FAE0FF6~YAAQUVLNF1CDlsmXAQAAuIfZzhxdQOgBvziZTFB5Tx794IO9NEUawJQ+AooetiJSgqdOHKhcM2ZjJygGIZq0fqDgOAiWTQIMLTlRc7zfkKXNSePbsFSsxIbApe3xcRFfqbQsb6EmNQV/ajHTEu5AcL+hVcr5uRjKfrGYOc7yRZOtdEoLe2j4Wt0tCNI+7u2cV84BMhoKr6zMagutO6rr8B+Vn51s7ZJUSWgZzBqO3dlQfwMugniTGEv6EuTOj5dvxBrVpN/3oSkdH2ogDOOud2lrlwPHz97owvKVp73VCh/OPFlBspuVlHA1zRONCExrImZ1IiCeIlZ0Ms8kCydzcsPm1JLhqbk7dtNtS6hhu6n+0RlOf/IhDqtBqlh5Lu7jbcS2iuV2xA==~3425348~3356482; Domain=.boatrace.jp; Path=/; Expires=Thu, 03 Jul 2025 09:54:09 GMT; Max-Age=14397
+Server-Timing: cdn-cache; desc=MISS
+Server-Timing: edge; dur=3003
+Server-Timing: origin; dur=13
+Server-Timing: ak_p; desc="1751522048999_399331921_708652489_301059_8264_5_0_-";dur=1
+Link: <https://analytics.tiktok.com>;rel="preconnect",<https://www.googletagmanager.com>;rel="preconnect",<https://www.google.com>;rel="preconnect",<https://connect.facebook.net>;rel="preconnect",<https://static.ads-twitter.com>;rel="preconnect",<https://cse.google.com>;rel="preconnect",<https://www.google-analytics.com>;rel="preconnect",<https://s.yimg.jp>;rel="preconnect"

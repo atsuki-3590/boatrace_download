@@ -4,6 +4,10 @@ from datetime import datetime as dt, timedelta as td
 
 from pydrive2.auth import GoogleAuth
 from pydrive2.drive import GoogleDrive
+from dotenv import load_dotenv
+
+# 環境変数の読み込み
+load_dotenv()
 
 class OddsSpider(scrapy.Spider):
     name = "odds_spider"
@@ -25,7 +29,7 @@ class OddsSpider(scrapy.Spider):
         # ローカルWebサーバー経由で認証（初回以降は保存された認証情報を使用）
         gauth.LocalWebserverAuth()
         self.drive = GoogleDrive(gauth)
-        self.drive_folder_id = '1G0-CcHvddy4sZOQxLG_FCEphcCLNrbBY'
+        self.drive_folder_id = os.getenv('DRIVE_FOLDER_ID')
         print("Google Driveの認証が完了しました。")
         # --- ▲▲▲ ここまで ▲▲▲ ---
 
