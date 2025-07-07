@@ -3,4 +3,4 @@
 # 環境変数ファイル
 .env
 client_secrets.json
-boatrace_scrapy\client_secrets.json
+boatrace_scrapy/client_secrets.json
