@@ -1,0 +1,20 @@
+Content-Length: 8213
+Content-Type: text/html;charset=UTF-8
+Server: WebOTX_Web_Server
+X-Content-Type-Options: nosniff
+X-Frame-Options: SAMEORIGIN
+X-Xss-Protection: 1; mode=block
+Accept-Ranges: none
+Vary: Accept-Encoding
+X-Akamai-Transformed: 9 7027 0 pmb=mRUM,2
+Content-Encoding: gzip
+Date: Fri, 04 Jul 2025 02:19:33 GMT
+Set-Cookie: PC_JSESSIONID=CFB74ECD14724391EFF3F403B69F44C0; Path=/; Secure; HttpOnly
+Set-Cookie: AKA_A2=A; expires=Fri, 04-Jul-2025 03:19:33 GMT; path=/; domain=boatrace.jp; secure; HttpOnly
+Set-Cookie: _abck=00D14003E0C6AA96089D10CB6D479D17~-1~YAAQVlLNF4A4MsuXAQAAnWI70w4PV69Mrso7vmKyo6jDlOdq4VjPOF1lZ/qQRkjZtoFwHGx87nuOECwcLBV7D97PgUV3Bi3lVGllFVjQl4mnRgL8k2zvSlgfpy85WmyNUfoj29xKyTeWqQ+sy2QcLheuTX11uSB8KDFPeCIgg51VpwEnpK2c5wl/FqyS3bA6YBxag0CEO29Ik/LH4sQoG9FNOLxT1AyBZLCqXjmAJHMH51OJ7IwqzBF6GBsp1CTvTFZwGvQL5/ue+TfV13K2R0gOfS6CWhIhPwOG7sfif7wKmuMADNn4aNEu/NqeIQU5ngNL1jfXByzmcQN25Ntfa/PJrNBTcd65HsU3VQiB/bQpPsKXdxHL9afAjouidye2U8AEll+2rRtRxMAFQzvKWWNTNmbtz+YO0kQSzom1S/UCG/lxbK5ZNOsEZoGpOYUX+YlOGiY=~-1~-1~-1; Domain=.boatrace.jp; Path=/; Expires=Sat, 04 Jul 2026 02:19:33 GMT; Max-Age=31536000; Secure
+Set-Cookie: bm_sz=64817CCF2F9AEDA8B8094357A2CA8FDA~YAAQVlLNF4E4MsuXAQAAnWI70xwlSLLFUy/uVUagrGj7faMY5Nvd8JMvktHG+ofvMYs51yXPnkINL/UqNCwAUgWnGJymdFrwWG0WWwwjDRqGqN2UiqhK5//PJeVpgQwd9tnSVI+4LB2E0/g5wC0Y01biv0Pp01wCLOVXfKy4BGU8GRGbaiclBNPMerqtlkf7rGMwE1+gXqShe1Ibn2s+HIVctLbO26fWxqVvQvBC+PYNvyQEIzF54SWKMD52fW5R/i5r2UX9dJfE84D0Kl1pRli6vHdMyagWwSqSO5Fwt5z2f1MSSvbSkziVR4pMVMkiARmNYW+H+nGgTFcLOBd/r2NhO6haeGDzAutogpHAPzvK4HtHNbVFV/+qT4qQldp9Wxn2rACSs/o=~3486000~4474438; Domain=.boatrace.jp; Path=/; Expires=Fri, 04 Jul 2025 06:19:30 GMT; Max-Age=14397
+Server-Timing: cdn-cache; desc=MISS
+Server-Timing: edge; dur=3033
+Server-Timing: origin; dur=20
+Server-Timing: ak_p; desc="1751595570837_399331926_936094165_304718_23998_8_0_-";dur=1
+Link: <https://www.googletagmanager.com>;rel="preconnect",<https://connect.facebook.net>;rel="preconnect"
