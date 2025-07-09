@@ -31,3 +31,22 @@ HTTPCACHE_EXPIRATION_SECS = 0 # 0にするとキャッシュが期限切れに�
 HTTPCACHE_DIR = 'httpcache'
 HTTPCACHE_IGNORE_HTTP_CODES = []
 HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+# Configure item pipelines
+# See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
+ITEM_PIPELINES = {
+   'boatrace_scrapy.pipelines.InfoScrapyPipeline': 300,
+}
+
+
+# import os
+# from dotenv import load_dotenv
+# load_dotenv()
+
+# # Google DriveのフォルダID
+# GDRIVE_TXT_FOLDER_ID = os.getenv('GDRIVE_TXT_FOLDER_ID')
+# GDRIVE_CSV_FOLDER_ID = os.getenv('GDRIVE_CSV_FOLDER_ID')
+
+# # 処理対象の日付範囲
+# START_DATE = "20240801"
+# END_DATE = "20240803"
