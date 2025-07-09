@@ -21,9 +21,9 @@ class InfoSpider(scrapy.Spider):
         super().__init__(*args, **kwargs)
         self.log("Google Driveの認証を開始します...")
         self.drive = get_gdrive_service()
-        self.lzh_folder_id = os.getenv('GDRIVE_LZH_FOLDER_ID')
-        self.txt_folder_id = os.getenv('GDRIVE_TXT_FOLDER_ID')
-        self.csv_folder_id = os.getenv('GDRIVE_CSV_FOLDER_ID')
+        self.lzh_folder_id = os.getenv('INFO_LZH_FOLDER_ID')
+        self.txt_folder_id = os.getenv('INFO_TXT_FOLDER_ID')
+        self.csv_folder_id = os.getenv('INFO_CSV_FOLDER_ID')
         self.log("Google Driveの認証が完了しました。")
 
     async def start(self):
@@ -152,16 +152,9 @@ class InfoSpider(scrapy.Spider):
                 print(f"ヘッダー行の長さ: {len(info_line)}")
                 if len(info_line) > 20:
                     title = lines[i+2].strip()
-                    print(f"タイトル: {title}")
                     day = info_line[3:7].translate(trans_asc).replace(' ', '')
-                    print(f"day_raw: {info_line[3:7]}")
-                    print(f"day: {day}")
                     date = info_line[17:28].translate(trans_asc).replace(' ', '0')
-                    print(f"date_raw: {info_line[17:28]}")
-                    print(f"date: {date}")
                     stadium = info_line[52:55].replace('　', '')
-                    print(f"stadium_raw: {info_line[52:55]}")
-                    print(f"stadium: {stadium}")
                 else:
                     self.log(f"警告: ヘッダー行の形式が不正です。Line {i+3}: {info_line}")
 

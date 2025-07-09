@@ -36,5 +36,6 @@ HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
    'boatrace_scrapy.pipelines.InfoScrapyPipeline': 300,
+   'boatrace_scrapy.pipelines.ResultScrapyPipeline': 350,
 }
 
