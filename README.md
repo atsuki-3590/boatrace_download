@@ -16,6 +16,13 @@
       - `info_crawling.py`: LZH形式の圧縮データをダウンロードします。
       - `info_unzip.py`: ダウンロードしたデータを解凍します。
       - `info_scraping.py`: 解凍したテキストデータを解析し、CSVファイルとして整形します。
+  - **実行方法:**
+    以下のコマンドをターミナルで実行します。
+    ```bash
+    cd boatrace_scrapy
+    scrapy crawl info_spider
+    ```
+
 
 ### 2\. 競争成績データ
 

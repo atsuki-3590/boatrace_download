@@ -2,6 +2,7 @@ import scrapy
 import requests  # Webダウンロード用にインポート
 import lhafile
 import io
+import re
 import os
 from datetime import datetime, timedelta
 from boatrace_scrapy.utils import get_gdrive_service, list_drive_files
@@ -176,14 +177,41 @@ class InfoSpider(scrapy.Spider):
                 item['date'] = date
                 item['stadium'] = stadium
                 
-                race_round = line[0:3].translate(trans_asc).replace(' ', '0')
-                race_name = line[5:21].replace('　', '')
-                distance = line[22:26].translate(trans_asc)
-                post_time = line[37:42].translate(trans_asc)
-                item['race_round'] = race_round
-                item['race_name'] = race_name
-                item['distance'] = distance
-                item['post_time'] = post_time
+                # 正規表現パターンを定義
+                # (?P<name>...) のようにグループに名前を付けると後で分かりやすい
+                pattern = re.compile(
+                    r"^(?P<round>\s*.+?Ｒ)\s*"         # round: 先頭から 'R' まで (非貪欲)
+                    r"(?P<name>.+?)\s*"             # name: roundの後から distance の直前まで (非貪欲)
+                    r"(?P<distance>Ｈ１[２８]００ｍ)\s*"  # distance: 'Ｈ１２００ｍ' または 'Ｈ１８００ｍ'
+                    r"電話投票締切予定\s*(?P<time>.+?)\s*$" # time: '電話投票締切予定' の後の文字列
+                )
+                print(f"line: {line}")
+                print(f"Processing line: {line.strip()}")
+                
+                match = pattern.search(line)
+                
+                if match:
+                    race_round = match.group('round').translate(trans_asc).replace(' ', '0')
+                    # レース名に含まれる可能性のある全角スペースを半角に統一してから不要な空白を除去
+                    race_name = match.group('name').replace('　', ' ').strip()
+                    
+                    # 距離は1200か1800に正規化
+                    distance_str = match.group('distance').translate(trans_asc)
+                    if "1200" in distance_str:
+                        distance = 1200
+                    else:
+                        distance = 1800 # 1800m or other
+                        
+                    post_time = match.group('time').translate(trans_asc)
+
+                    item['race_round'] = race_round
+                    item['race_name'] = race_name
+                    item['distance'] = distance
+                    item['post_time'] = post_time
+                else:
+                    self.log(f"警告: 正規表現にマッチしませんでした。スキップします。 Line: {line}")
+                    continue # マッチしない場合はこのレースの処理を中断
+
                 
                 dict_stadium = {'桐生': 'KRY', '戸田': 'TDA', '江戸川': 'EDG', '平和島': 'HWJ', '多摩川': 'TMG', '浜名湖': 'HMN', '蒲郡': 'GMG', '常滑': 'TKN', '津': 'TSU', '三国': 'MKN', '琵琶湖': 'BWK','びわこ': 'BWK', '住之江': 'SME', '尼崎': 'AMG', '鳴門': 'NRT', '丸亀': 'MRG', '児島': 'KJM', '宮島': 'MYJ', '徳山': 'TKY', '下関': 'SMS', '若松': 'WKM', '芦屋': 'ASY', '福岡': 'FKO', '唐津': 'KRT', '大村': 'OMR'}
                 race_code_date = date.replace('年', '').replace('月', '').replace('日', '')
